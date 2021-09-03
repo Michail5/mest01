@@ -70,7 +70,7 @@ class DefaultCard extends Card {
         this._element = super._getTemplate();
         super._setEventListeners();
 
-        this._element.querySelector('.card__image').style.backgroundImage = `url(${this._image})`;
+        this._element.querySelector('.card__image').style.backgroundImage = `url(${this._image})`;//ИЛИ ТУТ нужен popup_image и popup_title
         this._element.querySelector('.card__title').textContent = this._title;
 
         return this._element;
