@@ -63,9 +63,7 @@ class DefaultCard extends Card {
     constructor(data, cardSelector) {
         super(cardSelector);
         this._title = data.title;
-        this._description = data.description;
-        this._image = data.image;
-
+        
     }
 
     generateCard() {
