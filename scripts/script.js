@@ -15,8 +15,13 @@ const closeAddPopupButton = document.querySelector('.popup-add__close-button');
 const addFormElement = document.querySelector('.popup-add__form');
 const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
+const popupImage = document.querySelector('.popup-image');
+const popupImageCloseButton = document.querySelector('.popup-image__close-button');
+const popupImageImage = popupImage.querySelector('.popup-image__image');
+const popupImageCaption = popupImage.querySelector('.popup-image__caption');
 const elementTemplate = document.querySelector('#element-template').content;
 const popupAddForm = document.querySelector('.popup-add__form');
+const popups = document.querySelectorAll('.popup');
 
 const closeByEsc = (evt) => {
   const opennedPopup = document.querySelector('.popup_opened');
