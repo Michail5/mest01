@@ -1,4 +1,6 @@
-import  {initialCards} from './initialCards.js';
+'use strict';
+import { initialCards } from './initialCards.js';
+import { Card } from './Cards.js';
 
 const editFormElement = document.querySelector('.popup-edit__form');
 const nameInput = document.querySelector('.popup__input_type_name');
@@ -13,8 +15,8 @@ const addButton = document.querySelector('.profile__add-button');
 const addFormElement = document.querySelector('.popup-add__form');
 const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
-const popupImageImage = popupImage.querySelector('.popup-image__image');
-const popupImageCaption = popupImage.querySelector('.popup-image__caption');
+const popupImageImage = document.querySelector('.popup-image__image');
+const popupImageCaption = document.querySelector('.popup-image__caption');
 const elementTemplate = document.querySelector('#element-template').content;
 const popupAddForm = document.querySelector('.popup-add__form');
 const popups = document.querySelectorAll('.popup');
@@ -32,33 +34,42 @@ const removeElement = (evt) => {
 const togglelike = (evt) => {
   evt.target.classList.toggle('element__like-button_active');
 }
-const createElement = card => {
-  const element = elementTemplate.querySelector('.element').cloneNode(true);
-  const elementImage = element.querySelector('.element__image');
-  const elementTitle = element.querySelector('.element__title');
-  const removeButton = element.querySelector('.element__remove-button');
-  const likeButton = element.querySelector('.element__like-button');
+// const createElement = card => {
+//   const element = elementTemplate.querySelector('.element').cloneNode(true);
+//   const elementImage = element.querySelector('.element__image');
+//   const elementTitle = element.querySelector('.element__title');
+//   const removeButton = element.querySelector('.element__remove-button');
+//   const likeButton = element.querySelector('.element__like-button');
 
-  elementTitle.textContent = card.name;
-  elementImage.src = card.link;
-  elementImage.alt = card.name;
+//   elementTitle.textContent = card.name;
+//   elementImage.src = card.link;
+//   elementImage.alt = card.name;
 
-  removeButton.addEventListener('click', removeElement);
-  likeButton.addEventListener('click', togglelike);
+//   removeButton.addEventListener('click', removeElement);
+//   likeButton.addEventListener('click', togglelike);
 
-  elementImage.addEventListener('click', function() {
-    openPopupImage();
+//   elementImage.addEventListener('click', function() {
+//     openPopupImage();
 
-    popupImageImage.src = card.link;
-    popupImageCaption.textContent = card.name;
-    popupImageImage.alt = card.name;
+//     popupImageImage.src = card.link;
+//     popupImageCaption.textContent = card.name;
+//     popupImageImage.alt = card.name;
+//   });
+
+//   return element;
+// };
+
+const createCards = () => {
+  initialCards.map(rowData =>{
+    const card = new Card(rowData, '#element-template');
+    elements.append(card.generateCard());
   });
+};
+createCards();
 
-  return element;
-}
-initialCards.forEach(function(item) {
-  elements.append(createElement(item));
-});
+// initialCards.forEach(function(item) {
+//   elements.append(createElement(item));
+// });
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEsc);
