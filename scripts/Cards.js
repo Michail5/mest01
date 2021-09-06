@@ -1,48 +1,50 @@
-
+  
 export class Card {
-  constructor(initData, cardSelector) {
-    this._name = initData.name;
-    this._link = initData.link;
-    this._cardSelector = cardSelector;
+  constructor(vupsen, template) {
+    this._vupsen = vupsen;
+    this._template = template;
   }
 
-  _getTemplate() {
-    const cardElement = document
-      .querySelector(this._cardSelector)
-      .content
-      .querySelector('.element')
-      .cloneNode(true);
 
-    return cardElement;
-  }
-
-  // _handleOpenPopup() {
-  //   popupImage.src = this._image;
-  //   popupElement.classList.add('popup_opened');
-  // }
-
-  // _handleClosePopup() {
-  //   popupImage.src = '';
-  //   popupElement.classList.remove('popup_opened');
-  // }
-
-  // _setEventListeners() {
-  //   this._element.addEventListener('click', () => {
-  //     this._handleOpenPopup();
-  //   });
-
-  //   popupCloseButton.addEventListener('click', () => {
-  //     this._handleClosePopup();
-  //   });
-  // }
 
   generateCard() {
-    this._element = this._getTemplate();
-    // this._setEventListeners();
+    this._getTemplate();
+    this._setEventListeners();
 
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__title').textContent = this._name;
+    this._elementTitle.textContent = this._vupsen.name;
+    this._elementImage.src = this._vupsen.link;
+    this._elementImage.alt = this._vupsen.name;
 
     return this._element;
   }
-}
+
+  _getTemplate() {
+    this._element = this._template.querySelector('.element').cloneNode(true);
+    this._elementImage = this._element.querySelector('.element__image');
+    this._elementTitle = this._element.querySelector('.element__title');
+    this._removeButton = this._element.querySelector('.element__remove-button');
+    this._likeButton = this._element.querySelector('.element__like-button');
+  }
+
+  _setEventListeners() {
+    this._removeButton.addEventListener('click', this._removeElement);
+    this._likeButton.addEventListener('click', this._togglelike);
+
+    this._elementImage.addEventListener('click', function() {
+      openPopupImage();
+
+      popupImageImage.src = this._vupsen.link;
+      popupImageCaption.textContent = this._vupsen.name;
+      popupImageImage.alt = this._vupsen.name;
+    });
+  }
+
+  _removeElement = (evt) => {
+    evt.target.closest('.element').remove();
+  }
+
+  _togglelike = (evt) => {
+    evt.target.classList.toggle('element__like-button_active');
+  }
+};
+
