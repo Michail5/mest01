@@ -40,11 +40,11 @@ export  class Card {
   }
 
 
-  _removeElement = (evt) => {
+  _removeElement (evt) {
     evt.target.closest('.element').remove();
   }
 
-  _togglelike = (evt) => {
+  _togglelike (evt) {
     evt.target.classList.toggle('element__like-button_active');
   }
-};
+}
