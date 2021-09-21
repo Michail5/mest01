@@ -32,8 +32,65 @@ import {
 const popupWImage = new PopupWithImage(imageInPopup);
 popupWImage.setEventListeners();
 
+const popupWithDeleteCard = new PopupWithDelete({ popupSelector: deleteCard });
+popupWithDeleteCard.setEventListeners();
 
 
+const closeByEsc = (evt) => {
+  const opennedPopup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(opennedPopup);
+  }
+}
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEsc);
+}
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc);
+}
+const closePopupEdit = () => {
+  closePopup(popupEdit);
+}
+const editProfile = () => {
+  popupEditForm.reset();
+  openPopup(popupEdit);
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubtitle.textContent;
+}
+const editFormSubmitHandler = evt => {
+  evt.preventDefault();
+  profileTitle.textContent = nameInput.value;
+  profileSubtitle.textContent = jobInput.value;
+  closePopupEdit();
+
+  popupEditForm.reset();
+}
+const addElement = () => {
+  openPopup(popupAdd);
+  popupAddForm.reset();
+}
+const closePopupAdd = () => {
+  closePopup(popupAdd);
+}
+const addFormSubmitHandler = evt => {
+  evt.preventDefault();
+
+  elements.prepend(createCard({ link: linkInput.value, name: titleInput.value }));
+
+  popupAddForm.reset();
+
+  closePopupAdd();
+}
+
+const onCardClick = (evt) => {
+  popupImageImage.src = evt.target.getAttribute("src");
+  popupImageCaption.textContent = evt.target.getAttribute("alt");
+  popupImageImage.alt = evt.target.getAttribute("alt");
+
+  openPopup(popupImage);
+}
 
 const createCard = (data) => {
   return new Card(data, '#element-template', onCardClick).generateCard();
